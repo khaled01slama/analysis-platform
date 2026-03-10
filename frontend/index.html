@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Analysis Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',
+              500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81',950:'#1e1b4b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .progress-bar { transition: width 0.5s ease-in-out; }
+    [x-cloak] { display: none !important; }
+    .nav-active { background: rgba(67,56,202,0.4); color: white; }
+    .nav-item:hover { background: rgba(55,48,163,0.6); }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .animate-spin { animation: spin 1s linear infinite; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <div id="app" class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="hidden lg:flex flex-col w-64 bg-brand-950 text-white flex-shrink-0">
+      <div class="flex items-center gap-3 px-6 py-5 border-b border-brand-800">
+        <svg class="w-7 h-7 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span class="text-lg font-bold tracking-tight">SecAnalysis</span>
+      </div>
+      <nav class="mt-4 flex flex-col gap-1 px-3" id="nav-links"></nav>
+      <div class="mt-auto pb-6 px-6 text-xs text-brand-400 text-center">Security Analysis Platform v1.0</div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-auto">
+      <!-- Mobile header -->
+      <header class="lg:hidden flex items-center gap-3 px-4 py-3 bg-white border-b border-gray-200">
+        <button onclick="toggleSidebar()" class="p-1.5 rounded-md hover:bg-gray-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <span class="font-semibold text-sm">Security Analysis Platform</span>
+      </header>
+
+      <main id="main-content" class="flex-1 p-4 md:p-8 overflow-auto"></main>
+    </div>
+  </div>
+
+  <!-- Mobile overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 z-30 bg-black/40 hidden" onclick="toggleSidebar()"></div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/router.js"></script>
+  <script src="/static/js/pages/dashboard.js"></script>
+  <script src="/static/js/pages/sbom.js"></script>
+  <script src="/static/js/pages/correlation.js"></script>
+  <script src="/static/js/pages/security.js"></script>
+  <script src="/static/js/pages/history.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

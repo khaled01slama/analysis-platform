@@ -1,0 +1,3 @@
+[submodule "vanir/vanir"]
+	path = vanir/vanir
+	url = https://github.com/google/vanir.git

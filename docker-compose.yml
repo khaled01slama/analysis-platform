@@ -1,0 +1,45 @@
+# ═══════════════════════════════════════════════════════════════════════
+#  Security Analysis Platform – Docker Compose
+# ═══════════════════════════════════════════════════════════════════════
+version: "3.9"
+
+services:
+  # ── Main application (API + Frontend + all engines) ───────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: security-analysis-platform
+    ports:
+      - "${PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=${WORKERS:-1}
+      - VANIR_PATH=/opt/vanir
+      - JOERN_HOME=/opt/joern
+    volumes:
+      # Persist data (SQLite DB, uploads, reports) across restarts
+      - app-data:/app/data
+      # Bind-mount for local development (uncomment if needed)
+      # - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          # Joern / Vanir can be memory-hungry
+          memory: 8g
+        reservations:
+          memory: 2g
+
+volumes:
+  app-data:
+    driver: local

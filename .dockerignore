@@ -1,0 +1,35 @@
+# ── Docker build exclusions ─────────────────────────────────────────
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+.env
+
+# IDE / editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# Build artefacts
+*.egg-info
+dist
+build
+
+# Vanir Bazel caches (huge – the build stage handles this)
+vanir/vanir/bazel-bin
+vanir/vanir/bazel-out
+vanir/vanir/bazel-testlogs
+vanir/vanir/bazel-vanir
+
+# Data (bind-mounted at runtime)
+data/uploads/*
+data/reports/*
+data/*.db
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+.dockerignore
